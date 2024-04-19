@@ -1,7 +1,7 @@
 {
   "name": "to-do-list",
-  "version": "0.1.0",
-  "private": true,
+  "homepage": "http://Liza0806.github.io/to-do-list",
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -10,6 +10,7 @@
     "@types/node": "^16.18.96",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
+    "@types/uuid": "^9.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
