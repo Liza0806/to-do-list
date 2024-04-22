@@ -17,7 +17,11 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 
 export type FilterValuseType = "all" | "completed" | "active";
-
+export type ToDoListType = {
+  id: string;
+  title: string;
+  filter: FilterValuseType;
+};
 function App() {
   const toDoListId1 = v1();
   const toDoListId2 = v1();
@@ -38,6 +42,14 @@ function App() {
       { id: v1(), title: "apple", isDone: true },
     ],
   });
+
+  
+
+
+let [toDoLists, setToDoLists] = useState<Array<ToDoListType>>([
+  { id: toDoListId1, title: "What to learn", filter: "active" },
+  { id: toDoListId2, title: "What to buy", filter: "completed" },
+]);
 
   /// tasks functions
 
@@ -112,17 +124,6 @@ function App() {
     }
   }
 
-
-  type ToDoListType = {
-    id: string;
-    title: string;
-    filter: FilterValuseType;
-  };
-
-  let [toDoLists, setToDoLists] = useState<Array<ToDoListType>>([
-    { id: toDoListId1, title: "What to learn", filter: "active" },
-    { id: toDoListId2, title: "What to buy", filter: "completed" },
-  ]);
 
   return (
     <div className="App">
