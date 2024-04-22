@@ -19,7 +19,11 @@ export const toDoListReducer = (
       if(toDo){
         toDo.title = action.title
     } return [...state];
-     
+    case 'CHANGE-TODOLIST-FILRER': 
+    const toDoFiltered= state.find((tl) => tl.id === action.id);
+    if(toDoFiltered){
+        toDoFiltered.filter = action.filter
+  } return [...state];
     default:
       throw new Error("dont understund u");
   }

@@ -59,3 +59,28 @@ test('correct todolist title should be changed',
     }
 
 )
+test('correct todolist filter should be changed',
+    ()=> {
+        const toDoListId1 = v1();
+        const toDoListId2 = v1();
+        
+
+        const startState: Array<ToDoListType> = [
+            { id: toDoListId1, title: "What to learn", filter: "active" },
+            { id: toDoListId2, title: "What to buy", filter: "completed" },
+          ];    
+        
+          const action = {
+            type: 'CHANGE-TODOLIST-FILRER',
+            title: "Whats going on",
+            id: toDoListId1,
+            filter: "completed"
+          }
+          const endState = toDoListReducer(startState, action )
+      
+          expect(endState[0].filter).toBe("completed")
+          expect(endState[1].filter).toBe("completed")
+
+    }
+
+)
