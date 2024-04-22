@@ -1,4 +1,7 @@
+import { IconButton, TextField } from "@mui/material";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { green } from "@mui/material/colors";
+import { AddCircleOutline } from "@mui/icons-material";
 
 type AddItemFormPropsType = {
   addItem: (item: string) => void;
@@ -15,14 +18,11 @@ export function AddItemForm(props: AddItemFormPropsType) {
   function onKeyDownHandler(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {
       const trimmedItemTitle = newItemTitle.trim();
-      trimmedItemTitle
-        ? props.addItem(trimmedItemTitle)
-        : setError("no text");
+      trimmedItemTitle ? props.addItem(trimmedItemTitle) : setError("no text");
       setNewItemTitle("");
     }
   }
   function addTask() {
-    debugger;
     const trimmedItemTitle = newItemTitle.trim();
     if (trimmedItemTitle) {
       props.addItem(trimmedItemTitle);
@@ -35,14 +35,21 @@ export function AddItemForm(props: AddItemFormPropsType) {
   }
   return (
     <div>
-      <input
+      <TextField
+        id="outlined-basic"
+        label="Add to do"
+        variant="outlined"
         value={newItemTitle}
         onChange={onChangeHandler}
         onKeyDown={onKeyDownHandler}
-        className={error ? "error" : ""}
+        error={!!error}
+        helperText={error}
       />
-      {<div className="error-message">{error}</div>}
-      <button onClick={addTask}>+</button>
+
+      <IconButton onClick={addTask}>
+        {" "}
+        <AddCircleOutline sx={{ color: green[500] }}></AddCircleOutline>
+      </IconButton>
     </div>
   );
 }
