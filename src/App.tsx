@@ -22,14 +22,15 @@ export type ToDoListType = {
   title: string;
   filter: FilterValuseType;
 };
+export type TaskStateType = {
+    [key: string]: Array<TaskType>;
+  };
 function App() {
   const toDoListId1 = v1();
   const toDoListId2 = v1();
 
-  type AllTaskType = {
-    [key: string]: Array<TaskType>;
-  };
-  let [tasks, setTasks] = useState<AllTaskType>({
+
+  let [tasks, setTasks] = useState<TaskStateType>({
     [toDoListId1]: [
       { id: v1(), title: "HTML", isDone: true },
       { id: v1(), title: "CSS", isDone: true },
