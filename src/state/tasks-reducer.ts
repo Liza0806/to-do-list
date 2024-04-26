@@ -12,7 +12,23 @@ export type AddTaskActionType = {
   taskTitle: string;
   todoId: string;
 };
-type ActionsType = RemoveTaskActionType | AddTaskActionType;
+export type ChangeTaskTitleActionType = {
+  type: "CHANGE-TASK-TITLE";
+  taskTitle: string;
+  todoId: string;
+  taskId: string;
+};
+export type changeTaskStatusActionType = {
+    type: "CHANGE-TASK-STATUS";
+    isDone: boolean;
+    todoId: string;
+    taskId: string;
+}
+type ActionsType =
+  | RemoveTaskActionType
+  | AddTaskActionType
+  | ChangeTaskTitleActionType
+  | changeTaskStatusActionType;
 export const tasksReducer = (
   state: TaskStateType,
   action: ActionsType
@@ -36,6 +52,22 @@ export const tasksReducer = (
       return stateCopy;
     }
 
+    case "CHANGE-TASK-TITLE": {
+      let stateCopy = { ...state };
+      let tasks = state[action.todoId];
+      let task = tasks.find((t: any)=> t.id === action.taskId)
+      if(task){
+      task.title = action.taskTitle}
+      return stateCopy;
+    }
+    case "CHANGE-TASK-STATUS": {
+        let stateCopy = { ...state };
+        let tasks = state[action.todoId];
+        let task = tasks.find((t: any)=> t.id === action.taskId)
+        if(task){
+        task.isDone = action.isDone}
+        return stateCopy;
+      }
     default:
       throw new Error("dont understund u");
   }
@@ -53,3 +85,27 @@ export const addTaskAC = (
 ): AddTaskActionType => {
   return { type: "ADD-TASK", taskTitle: taskTitle, todoId: todoId };
 };
+
+export const changeTaskTitleAC = (
+  taskTitle: string,
+  todoId: string,
+  taskId: string
+) : ChangeTaskTitleActionType => {
+  return {
+    type: "CHANGE-TASK-TITLE",
+    taskTitle: taskTitle,
+    todoId: todoId,
+    taskId: taskId,
+  };
+};
+
+export const changeTaskStatusAC = (  isDone: boolean,
+    todoId: string,
+    taskId: string): changeTaskStatusActionType => {
+        return {
+            type: "CHANGE-TASK-STATUS",
+            isDone: isDone,
+            todoId: todoId,
+            taskId: taskId,
+          };
+    }
