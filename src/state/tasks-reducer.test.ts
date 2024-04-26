@@ -1,5 +1,6 @@
 import { addTaskAC, changeTaskTitleAC, changeTaskStatusAC,removeTaskAC, tasksReducer } from "./tasks-reducer";
 import { TaskStateType } from "../App";
+import { addToDoListAC } from "./todolists-reducer";
 
 test("correct task should be deleted from correct array", () => {
   let startState: TaskStateType = {
@@ -92,4 +93,26 @@ test("correct task status should be updated in correct array", () => {
   expect(endState["toDoListId1"].length).toBe(3);
   expect(endState["toDoListId2"][1].isDone).toBe(false);
   expect(endState["toDoListId1"][1].isDone).toBe(true);
+});
+
+test("new property with new array should be added when todolist is added", () => {
+  let startState: TaskStateType = {
+    'toDoListId1': [
+      { id: "1", title: "HTML", isDone: true },
+      { id: "2", title: "CSS", isDone: true },
+      { id: "3", title: "JS", isDone: true },
+    ],
+    'toDoListId2': [
+      { id: "1", title: "book", isDone: true },
+      { id: "2", title: "milk", isDone: true },
+      { id: "3", title: "apple", isDone: true },
+    ],
+  };
+
+  const action = addToDoListAC("no matter ");
+
+  const endState = tasksReducer(startState, action);
+const keys = Object.keys(endState)
+const newKew = keys.find(k=> k !== 'toDoListId1' && k !== 'toDoListId2')
+expect(endState[newKew]).toEqual([])
 });

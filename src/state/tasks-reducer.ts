@@ -1,6 +1,7 @@
 import { v1 } from "uuid";
 import { TaskStateType } from "../App";
 import { TaskType } from "../components/ToDoList/ToDoList";
+import { AddToDoListActionType } from "./todolists-reducer";
 
 export type RemoveTaskActionType = {
   type: "REMOVE-TASK";
@@ -28,7 +29,8 @@ type ActionsType =
   | RemoveTaskActionType
   | AddTaskActionType
   | ChangeTaskTitleActionType
-  | changeTaskStatusActionType;
+  | changeTaskStatusActionType
+  | AddToDoListActionType;
 export const tasksReducer = (
   state: TaskStateType,
   action: ActionsType
@@ -68,6 +70,12 @@ export const tasksReducer = (
         task.isDone = action.isDone}
         return stateCopy;
       }
+
+    case "ADD-TODOLIST": {
+        let stateCopy = { ...state };
+        stateCopy[v1()] = []
+        return stateCopy;
+    }
     default:
       throw new Error("dont understund u");
   }
