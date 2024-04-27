@@ -1,6 +1,6 @@
 import { v1 } from "uuid";
 import { TaskStateType } from "../App";
-import { AddToDoListActionType, RemoveToDoListActionType } from "./todolists-reducer";
+import { AddToDoListActionType, RemoveToDoListActionType, toDoListId1, toDoListId2 } from "./todolists-reducer";
 
 export type RemoveTaskActionType = {
   type: "REMOVE-TASK";
@@ -24,6 +24,21 @@ export type changeTaskStatusActionType = {
     todoId: string;
     taskId: string;
 }
+
+const initialState: TaskStateType = {
+  [toDoListId1]: [
+    { id: v1(), title: "HTML", isDone: true },
+    { id: v1(), title: "CSS", isDone: true },
+    { id: v1(), title: "JS", isDone: true },
+    { id: v1(), title: "Redux", isDone: false },
+  ],
+  [toDoListId2]: [
+    { id: v1(), title: "book", isDone: true },
+    { id: v1(), title: "milk", isDone: true },
+    { id: v1(), title: "apple", isDone: true },
+  ],
+}
+
 type ActionsType =
   | RemoveTaskActionType
   | AddTaskActionType
@@ -32,9 +47,10 @@ type ActionsType =
   | AddToDoListActionType
   | RemoveToDoListActionType;
 export const tasksReducer = (
-  state: TaskStateType,
+  state: TaskStateType = initialState,
   action: ActionsType
 ): TaskStateType => {
+
   switch (action.type) {
     case "REMOVE-TASK": {
       let stateCopy = { ...state };
@@ -82,7 +98,7 @@ export const tasksReducer = (
       return stateCopy;
     }
     default:
-      throw new Error("dont understund u");
+      return state
   }
 };
 export const removeTaskAC = (
