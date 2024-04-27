@@ -12,7 +12,7 @@ export type PropsType = {
   id: string;
   changeFilter: (value: FilterValuseType, toDoListId: string) => void;
   changeTaskTitle: (id: string, toDoListId: string, title: string) => void;
-  changeStatus: (id: string, toDoListId: string) => void;
+  changeStatus: (isDone: boolean, toDoListId: string,  id: string) => void;
   addTask: (task: string, toDoListId: string) => void;
   removeTask: (id: string, toDoListId: string) => void;
   removeToDoList: (id: string) => void;
@@ -51,7 +51,7 @@ export const TodoList = (props: PropsType) => {
             props.removeTask(task.id, props.id);
           };
           function onCheckboxChangeHandler(e: ChangeEvent<HTMLInputElement>) {
-            props.changeStatus(task.id, props.id);
+            props.changeStatus(task.isDone, props.id, task.id);
           }
           function onTaskTitleChangeHandler(titleNewValue: string) {
             props.changeTaskTitle(task.id, props.id, titleNewValue);
