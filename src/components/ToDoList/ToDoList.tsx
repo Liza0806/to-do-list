@@ -4,6 +4,13 @@ import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
 import { Button, Checkbox, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useDispatch } from "react-redux";
+import {
+  addTaskAC,
+  changeTaskStatusAC,
+  changeTaskTitleAC,
+  removeTaskAC,
+} from "../../state/tasks-reducer";
 
 export type PropsType = {
   title: string;
@@ -11,10 +18,10 @@ export type PropsType = {
   filter: FilterValuseType;
   id: string;
   changeFilter: (value: FilterValuseType, toDoListId: string) => void;
-  changeTaskTitle: (id: string, toDoListId: string, title: string) => void;
-  changeStatus: (isDone: boolean, toDoListId: string,  id: string) => void;
-  addTask: (task: string, toDoListId: string) => void;
-  removeTask: (id: string, toDoListId: string) => void;
+  // changeTaskTitle: (id: string, toDoListId: string, title: string) => void;
+  // changeStatus: (isDone: boolean, toDoListId: string, id: string) => void;
+  // addTask: (task: string, toDoListId: string) => void;
+  // removeTask: (id: string, toDoListId: string) => void;
   removeToDoList: (id: string) => void;
   changeToDoListTitle: (id: string, newTitle: string) => void;
 };
@@ -25,14 +32,16 @@ export type TaskType = {
   isDone: boolean;
 };
 export const TodoList = (props: PropsType) => {
+  const dispatch = useDispatch();
+
   const removeToDoList = () => {
     props.removeToDoList(props.id);
   };
   const changeToDoListTitle = (newTitle: string) => {
     props.changeToDoListTitle(props.id, newTitle);
   };
-  const addTask = (title: string) => {
-    props.addTask(title, props.id);
+  const addTaskHandler = (title: string) => {
+    dispatch(addTaskAC(title, props.id));
   };
 
   return (
@@ -44,17 +53,17 @@ export const TodoList = (props: PropsType) => {
       <IconButton aria-label="delete" onClick={removeToDoList}>
         <DeleteIcon />
       </IconButton>
-      <AddItemForm addItem={addTask} />
+      <AddItemForm addItem={addTaskHandler} />
       <ul>
         {props.tasks.map((task) => {
           const removeHandler = () => {
-            props.removeTask(task.id, props.id);
+            dispatch(removeTaskAC(task.id, props.id));
           };
           function onCheckboxChangeHandler(e: ChangeEvent<HTMLInputElement>) {
-            props.changeStatus(task.isDone, props.id, task.id);
+            dispatch(changeTaskStatusAC(!task.isDone, props.id, task.id));
           }
           function onTaskTitleChangeHandler(titleNewValue: string) {
-            props.changeTaskTitle(task.id, props.id, titleNewValue);
+            dispatch(changeTaskTitleAC(task.id, props.id, titleNewValue));
           }
           return (
             <li key={task.id} className={task.isDone ? "is-done" : ""}>

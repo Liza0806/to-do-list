@@ -19,12 +19,6 @@ import {
   changeToDoListTitleAC,
   removeToDoListAC,
 } from "./state/todolists-reducer";
-import {
-  addTaskAC,
-  changeTaskStatusAC,
-  changeTaskTitleAC,
-  removeTaskAC,
-} from "./state/tasks-reducer";
 import { useDispatch } from "react-redux";
 import { AppRootState } from "./state/store";
 import { useSelector } from "react-redux";
@@ -47,24 +41,24 @@ const tasks = useSelector<AppRootState, TaskStateType>((state)=> state.tasks)
 
   /// tasks functions
 
-  function addTask(task: string, toDoListId: string) {
-    const action = addTaskAC(task, toDoListId);
-    dispatch(action);
-  }
+//   function addTask(task: string, toDoListId: string) {
+//     const action = addTaskAC(task, toDoListId);
+//     dispatch(action);
+//   }
 
-  function removeTask(id: string, toDoListId: string) {
-    const action = removeTaskAC(id, toDoListId);
-    dispatch(action);
-  }
+//   function removeTask(id: string, toDoListId: string) {
+//     const action = removeTaskAC(id, toDoListId);
+//     dispatch(action);
+//   }
 
-  function changeStatus(isDone: boolean, toDoListId: string, id: string) {
-    const action = changeTaskStatusAC(!isDone, toDoListId, id);
-    dispatch(action);
-  }
-  function changeTaskTitle(id: string, toDoListId: string, title: string) {
-    const action = changeTaskTitleAC(title, toDoListId, id);
-    dispatch(action);
-  }
+//   function changeStatus(isDone: boolean, toDoListId: string, id: string) {
+//     const action = changeTaskStatusAC(!isDone, toDoListId, id);
+//     dispatch(action);
+//   }
+//   function changeTaskTitle(id: string, toDoListId: string, title: string) {
+//     const action = changeTaskTitleAC(title, toDoListId, id);
+//     dispatch(action);
+//   }
 
   /// todo functions
 
@@ -132,14 +126,14 @@ const tasks = useSelector<AppRootState, TaskStateType>((state)=> state.tasks)
                     key={tl.id}
                     title={tl.title}
                     tasks={tasksForToDoList}
-                    removeTask={removeTask}
+                   // removeTask={removeTask}
                     changeFilter={changeFilter}
-                    addTask={addTask}
-                    changeStatus={changeStatus}
+                  //  addTask={addTask}
+                   // changeStatus={changeStatus}
                     filter={tl.filter}
                     id={tl.id}
                     removeToDoList={removeToDoList}
-                    changeTaskTitle={changeTaskTitle}
+                    // changeTaskTitle={changeTaskTitle}
                     changeToDoListTitle={changeToDoListTitle}
                   />
                 </Paper>
